@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>书店</title>
+    <% include ../public/cdn.ejs%>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <% include ../public/header.ejs%>
+        <div class="container">
+            <% include ../public/nav.ejs%>
+            <div class="row content">
+                <div id="content-nav"></div>
+                <div class="cover css14975a2a441e012">全球最大的图书平台</div>
+            </div>
+            <div class="row container-other">
+                <!--限时秒杀 -->
+                <div class="other-module">
+                    <div class="module-title">
+                        <span class="cagetor-name">限时秒杀</span>
+                        <span id="cagetor-more">更多>></span>
+                    </div>
+                    <div class="row module-content">
+                        <% for(var i = 0 ; i <= (data.length+4)/2 ;i ++ ) {%>
+                        <div class="col-lg-4">
+                            <% for(var j = i ; j < i + 2 ; j ++) {%>
+                            <div class="module-commodity">
+                                <a href="/commodity/<%= data[j].id %> ">
+                                    <div class="commodity-image">
+                                        <img src=<%= data[j].imgurl %>  alt="">
+                                    </div>
+                                    <div class="commodity-message"> <%= data[j].title %> </div>
+                                    <div class="commodity-author"><%= data[j].author %> </div>
+                                    <div class="commodity-price">¥ <%= data[j].price %> </div>
+                                </a>
+                            </div>
+                         <%  }%>
+                        </div>
+                        <%i = j-1}%>
+                    </div>
+                </div>
+                <!--新书上架 -->
+                <div class="other-module">
+                    <div class="module-title">
+                        <span class="cagetor-name">新书上架</span>
+                        <span id="cagetor-more">更多>></span>
+                    </div>
+                    <div class="row module-content">
+                        <% for(let i = 0 ; i < 3 ;i ++ ) {%>
+                        <div class="col-lg-4">
+                            <% for(let i = 0; i < 2 ; i ++) {%>
+                            <div class="module-commodity">
+                                <a href="#">
+                                    <div class="commodity-image">
+                                        <img src="image/book.jpg" alt="">
+                                    </div>
+                                    <div class="commodity-message"> AI·未来（李开复博士深度解析人工智能未来十年大趋势）</div>
+                                    <div class="commodity-author">李开复</div>
+                                    <div class="commodity-price">¥42.80</div>
+                                </a>
+                            </div>
+                            <% }%>
+                        </div>
+                        <% }%>
+                    </div>
+                </div>
+                <!--天天特价 -->
+                <div class="other-module">
+                    <div class="module-title">
+                        <span class="cagetor-name">天天特价</span>
+                        <span id="cagetor-more">更多>></span>
+                    </div>
+                    <div class="row module-content">
+                        <% for(let i = 0 ; i < 3 ;i ++ ) {%>
+                        <div class="col-lg-4">
+                            <% for(let i = 0; i < 2 ; i ++) {%>
+                            <div class="module-commodity">
+                                <a href="#">
+                                    <div class="commodity-image">
+                                        <img src="image/book.jpg" alt="">
+                                    </div>
+                                    <div class="commodity-message"> AI·未来（李开复博士深度解析人工智能未来十年大趋势）</div>
+                                    <div class="commodity-author">李开复</div>
+                                    <div class="commodity-price">¥42.80</div>
+                                </a>
+                            </div>
+                            <% }%>
+                        </div>
+                        <% }%>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row fooder">
+            <div class="end">---------------End---------------</div>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
