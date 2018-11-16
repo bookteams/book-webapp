@@ -24,11 +24,12 @@
                 <div class="userName content">
                         <div class="img1 form-img"></div>
                         <input type="text" placeholder="请输入用户名" id="username">
-                        <span id="login-uname-tips" class="tips err-tips">格式不正确</span>
+                        <span id="login-uname-tips" class="tips">以英文字母开头且不少于6位</span>
                 </div>
                 <div class="password content">
                     <div class="img2 form-img"></div>
                     <input type="password" placeholder="请输入密码" id="password">
+                    <span id="login-pass-tips" class="tips ">密码不少于6位</span>
                 </div>
                 <div class="signIn content">
                     <button id="signin-btn" class="btn">SIGN IN</button>
@@ -92,6 +93,7 @@
                 <div class="password content">
                     <div class="img2 form-img"></div>
                     <input type="password" placeholder="请输入新密码" id="new-password">
+                    <span id="retrieve-pass-tips" class="tips ">密码不少于6位</span>
                 </div>
                 <div class="signIn content">
                     <button class="btn" id="retrieve-btn">RETRIEVE</button>
