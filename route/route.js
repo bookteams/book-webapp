@@ -2,9 +2,14 @@ const fs = require("fs");
 const data = require("../module/data");
 function route(app) {
     app.get("/", (req, res) => {
-        res.render("login")
+        res.render("index", {
+            data: data,
+        });
     });
-    app.get("/index", (req, res) => {
+    app.get("/login", (req, res) => {
+        res.render("login")        
+    })
+    app.get("/index/:id", (req, res) => {
          res.render("index", {
              data: data,
          })

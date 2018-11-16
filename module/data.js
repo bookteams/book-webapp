@@ -3,7 +3,7 @@ let data = [{
     "title": "AI·未来（李开复博士深度解析人工智能未来十年大趋势）",
     "author": "李开复",
     "price": "42.8",
-    "imgurl": "image/book.jpg"
+    "imgurl": "../image/book.jpg"
 
 }, {
     "id": 1,

@@ -9,6 +9,8 @@
     <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="../js/tips.js"></script>
+    <script src="../js/util.js"></script>
     <title>网上书城</title>
 </head>
 
@@ -29,7 +31,7 @@
                     <input type="password" placeholder="请输入密码" id="password">
                 </div>
                 <div class="signIn content">
-                    <button id="btn">SIGN IN</button>
+                    <button id="signin-btn" class="btn">SIGN IN</button>
                 </div>
             </div>
 
@@ -50,21 +52,21 @@
             <div class="box-content">
                 <div class="register-userName content">
                     <div class="img1 form-img"></div>
-                    <input type="text" placeholder="请输入用户名" >
-                    <span id="login-uname-tips" class="tips">以英文字母开头，不少于6位</span>
+                    <input type="text" placeholder="请输入用户名" id="register-name">
+                    <span id="register-name-tips" class="tips">以英文字母开头，不少于6位</span>
                 </div>
                 <div class="register-emial content">
                     <div class="img1 form-img"></div>
-                    <input type="text" placeholder="请输入邮箱" >
-                    <span id="login-uname-tips" class="tips">可用于找回密码</span>
+                    <input type="text" placeholder="请输入邮箱" id="register-emial">
+                    <span id="register-emial-tips" class="tips">可用于找回密码</span>
                 </div>
                 <div class="register-password content">
                     <div class="img2 form-img"></div>
-                    <input type="password" placeholder="请输入密码" >
-                    <span id="login-uname-tips" class="tips ">密码不少于6位</span>
+                    <input type="password" placeholder="请输入密码" id="register-password">
+                    <span id="register-pass-tips" class="tips ">密码不少于6位</span>
                 </div>
                 <div class="signUp content">
-                    <button id="btn">SIGN UP</button>
+                    <button class="btn" id="register-btn">SIGN UP</button>
                 </div>
             </div>
 
@@ -84,15 +86,15 @@
             <div class="box-content">
                 <div class="userName content">
                     <div class="img1 form-img"></div>
-                    <input type="text" placeholder="请输入您的邮箱">
-                    <span id="login-uname-tips" class="tips">您注册时所用的邮箱</span>
+                    <input type="text" placeholder="请输入您的邮箱" id="retrieve-emial">
+                    <span id="retrieve-tips" class="tips">您注册时所用的邮箱</span>
                 </div>
                 <div class="password content">
                     <div class="img2 form-img"></div>
-                    <input type="password" placeholder="请输入新密码">
+                    <input type="password" placeholder="请输入新密码" id="new-password">
                 </div>
                 <div class="signIn content">
-                    <button id="btn">RETRIEVE</button>
+                    <button class="btn" id="retrieve-btn">RETRIEVE</button>
                 </div>
             </div>
 

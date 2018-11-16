@@ -148,7 +148,7 @@ input::-webkit-input-placeholder{
 .signUp {
     top:160px;
 }
-button#btn{
+button.btn{
     background:#f40;
     width:90%;
     height:38px;
@@ -199,4 +199,5 @@ button#btn:hover{
 /*错误提示文本颜色 */
 .err-tips{
     color:red;
+    display:none;
 }
