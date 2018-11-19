@@ -15,7 +15,7 @@ function route(app) {
          })
     })
     app.get("/literature", (req, res) => {
-        res.render("commodity");
+        res.render("context");
     });
     app.get("/children", (req, res) => {
         res.render("context");

@@ -22,6 +22,7 @@ li {
     height: 30px;
     background-color: #f9f9f9;
     box-shadow: 0 0 2px #ccc;
+    position:relative;
 }
 
 .header-seach {
@@ -49,7 +50,17 @@ li {
     text-decoration: none;
     margin: 0 10px;
 }
-
+.nav-personal{
+    position: absolute;
+    top:5px;
+    right:10%;
+    color:red;
+    text-decoration:none;
+    font-size:.8rem;
+}
+.nav-personal:hover{
+    text-decoration: none;
+}
 .seach-content {
     width: 80%;
     height: 100px;
