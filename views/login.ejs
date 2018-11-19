@@ -5,12 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <% include ../public/cdn.css.ejs%>
     <link rel="stylesheet" href="../css/login.css">
-    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="../js/tips.js"></script>
-    <script src="../js/util.js"></script>
     <title>网上书城</title>
 </head>
 
@@ -22,14 +18,16 @@
 
             <div class="box-content">
                 <div class="userName content">
-                        <div class="img1 form-img"></div>
+                        <i class="fa  fa-user icon"></i>
                         <input type="text" placeholder="请输入用户名" id="username">
-                        <span id="login-uname-tips" class="tips">以英文字母开头且不少于6位</span>
+                         <i id="login-name-drag" class="icon-tip fa"></i>
+                        <span  class="tips" id="login-name-tip">以英文字母开头且不少于6位</span>
                 </div>
                 <div class="password content">
-                    <div class="img2 form-img"></div>
+                    <i class="fa  fa-lock icon"></i>
                     <input type="password" placeholder="请输入密码" id="password">
-                    <span id="login-pass-tips" class="tips ">密码不少于6位</span>
+                    <i id="login-pass-drag" class="icon-tip fa"></i>
+                    <span  class="tips" id="login-pass-tip">密码不少于6位</span>
                 </div>
                 <div class="signIn content">
                     <button id="signin-btn" class="btn">SIGN IN</button>
@@ -52,19 +50,28 @@
 
             <div class="box-content">
                 <div class="register-userName content">
-                    <div class="img1 form-img"></div>
+                    <i class="fa  fa-user icon"></i>
                     <input type="text" placeholder="请输入用户名" id="register-name">
-                    <span id="register-name-tips" class="tips">以英文字母开头，不少于6位</span>
+                    <i id="register-name-drag" class="icon-tip fa"></i>
+                    <span  class="tips" id="register-name-tip">以英文字母开头，不少于6位</span>
                 </div>
-                <div class="register-emial content">
-                    <div class="img1 form-img"></div>
-                    <input type="text" placeholder="请输入邮箱" id="register-emial">
-                    <span id="register-emial-tips" class="tips">可用于找回密码</span>
+                <div class="register-phone content">
+                    <i class="fa  fa-phone icon"></i>
+                    <input type="text" placeholder="请输入手机号" id="register-phone">
+                    <i id="register-phone-drag" class="icon-tip fa"></i>
+                    <span id="register-phone-tip" class="tips">可用于找回密码</span>
                 </div>
                 <div class="register-password content">
-                    <div class="img2 form-img"></div>
+                    <i class="fa  fa-lock icon"></i>
                     <input type="password" placeholder="请输入密码" id="register-password">
-                    <span id="register-pass-tips" class="tips ">密码不少于6位</span>
+                    <i id="register-pass-drag" class="icon-tip fa"></i>
+                    <span id="register-pass-tip" class="tips ">密码不少于6位</span>
+                </div>
+                <div class="register-sex content">
+                    <i class="fa  fa-intersex  icon"></i>
+                    <input type="text" placeholder="请输入性别" id="register-sex">
+                    <i id="register-sex-drag" class="icon-tip fa "></i>
+                    <span id="register-sex-tip" class="tips ">男/女</span>
                 </div>
                 <div class="signUp content">
                     <button class="btn" id="register-btn">SIGN UP</button>
@@ -85,17 +92,25 @@
             <div class="logo" id="logo"></div>
 
             <div class="box-content">
-                <div class="userName content">
-                    <div class="img1 form-img"></div>
-                    <input type="text" placeholder="请输入您的邮箱" id="retrieve-emial">
-                    <span id="retrieve-tips" class="tips">您注册时所用的邮箱</span>
+                <div class="register-userName content">
+                    <i class="fa  fa-user icon"></i>
+                    <input type="text" placeholder="请输入您的用户名" id="retrieve-name">
+                    <i id="retrieve-name-drag" class="icon-tip fa "></i>
+                    <span id="retrieve-name-tip" class="tips">您需要找回的用户名</span>
                 </div>
-                <div class="password content">
-                    <div class="img2 form-img"></div>
+                <div class="register-phone content">
+                    <i class="fa  fa-phone icon"></i>
+                    <input type="text" placeholder="请输入您的手机号" id="retrieve-phone">
+                    <i id="retrieve-phone-drag" class="icon-tip fa "></i>
+                    <span id="retrieve-phone-tip" class="tips">注册时的手机号</span>
+                </div>
+                <div class="register-password content">
+                    <i class="fa  fa-lock icon"></i>
                     <input type="password" placeholder="请输入新密码" id="new-password">
-                    <span id="retrieve-pass-tips" class="tips ">密码不少于6位</span>
+                    <i id="retrieve-pass-drag" class="icon-tip fa "></i>
+                    <span id="retrieve-pass-tips" class="tips "></span>
                 </div>
-                <div class="signIn content">
+                <div class="retrieve-signIn content">
                     <button class="btn" id="retrieve-btn">RETRIEVE</button>
                 </div>
             </div>
@@ -112,6 +127,7 @@
 
 
     </div>
+    <% include ../public/cdn.js.ejs%>
     <script src="../js/login.js"></script>
 </body>
 

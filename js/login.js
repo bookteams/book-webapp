@@ -51,57 +51,41 @@ const Login = {
         this.bindEvent();
     },
     render(){
-        this.loginUname = $('#username');
-        this.nameTip = $("#login-uname-tips");
-        this.passTip = $("#login-pass-tips");
+        //element
+        this.loginName = $('#username');
+        this.loginPass = $("#password");
+        //tip
+        this.nameTip = $("#login-name-tip");
+        this.passTip = $("#login-pass-tip");
+        //btn
         this.signinSubmit = $("#signin-btn");
-        this.password = $("#password");
-        this.nameDrag = false;
-        this.passDrag = false;
     },
     bindEvent(){
-        this.loginUname.on('input',debounce(this.methods.isNameRule.bind(this),500));
-        this.password.on('input',debounce(this.methods.isPassRule.bind(this),500));
+        //toggle tip
+        this.loginName.on('focus',this.methods.toggleTip.bind(this,this.nameTip,true));
+        this.loginName.on('blur',this.methods.toggleTip.bind(this,this.nameTip,false));
+        this.loginPass.on('focus', this.methods.toggleTip.bind(this, this.passTip, true));
+        this.loginPass.on('blur', this.methods.toggleTip.bind(this, this.passTip, false));
+        // btn
         this.signinSubmit.on('click',throttle(this.methods.ajaxSubmit.bind(this),2000));
     },
     methods : {
-        isNameRule : function(e){
-            this.nameDrag = false;
-            var firstDrge = e.target.value.match(/^[A-z]/);
-            var lengthDrag = e.target.value.match(/(\w){6,}/)
-            if (firstDrge && lengthDrag) {
-                this.nameDrag = true;
-                this.nameTip.removeClass("err-tips").html("用户名格式正确");
-            } else {
-                this.nameTip.html("用户名格式不正确").addClass("err-tips").css("display", "block");
-            }
+        toggleTip: function (tip, drag) {
+            drag ? tip.css("display", "block") : tip.css("display", "none");
         },
-         isPassRule: function (e) {
-             this.passDrag = false;
-             var drag = e.target.value.match(/[A-z0-9_!\.@+-]{6,}/) != null ? true : false;
-             if (drag) {
-                 this.passDrag = true;
-                 this.passTip.removeClass("err-tips").html("密码格式正确");
-             } else {
-                 this.passTip.addClass("err-tips").html("密码格式不正确").css("display", "block");
-             }
-         },
         ajaxSubmit : function(){
-           if(this.nameDrag&&this.passDrag) {
-                var data = `name=${this.loginUname.val()}&password=${this.password.val()}`;
-                console.log(data);
-                const promise = asyncMethods.postMessages("http://jsonplaceholder.typicode.com/posts");
-                promise.then(data => {
-                    new Tips("success", '登录成功', 2000);
-                    setTimeout(() => {
-                        window.location.href = `index/${data.id}`;
-                    }, 1000)
-                }).catch(err => {
-                    new Tips('error', '用户名或密码输入错误', 2000);
-                })
-           } else {
-               new Tips('error','用户名或密码输入错误',1000);
-           }
+            var data = `name=${this.loginName.val()}&password=${this.loginPass.val()}`;
+            console.log(data);
+            const promise = asyncMethods.postMessages("http://jsonplaceholder.typicode.com/posts",data);
+            promise.then(data => {
+                console.log(data.id);
+                new Tips("success", '登录成功', 2000);
+                setTimeout(() => {
+                    window.location.href = `index/${data.id}`;
+                }, 1000)
+            }).catch(err => {
+                new Tips('error', '用户名或密码输入错误', 2000);
+            })
         },
 
     },
@@ -115,43 +99,58 @@ const Login = {
          this.bindEvent();
      },
      render(){
-         this.retrieveEmial = $("#retrieve-emial");
-         this.retrieveTips = $("#retrieve-tips");
+        //element
+         this.retrieveName = $("#retrieve-name");
+         this.retrievePhone = $("#retrieve-phone")
          this.newPassword = $("#new-password");
-         this.retrieveBtn = $("#retrieve-btn");
-         this.passTip = $("#retrieve-pass-tips")
-         this.emialDrag = false;
-         this.passDrag = false;
+        // tip
+        this.passTip = $("#retrieve-pass-tip")
+        this.nameTip = $("#retrieve-name-tip");
+        this.phoneTip = $("#retrieve-phone-tip");
+        //drag
+        this.nameDrag = $("#retrieve-name-drag");
+        this.phoneDrag = $("#retrieve-phone-drag");
+        this.passDrag = $("#retrieve-pass-drag");
+        //btn
+        this.retrieveBtn = $("#retrieve-btn");
+        this.user;
      },
      bindEvent(){
-         this.retrieveEmial.on("input",debounce(this.methods.isEmialRule.bind(this),500));
+         this.retrieveName.on("blur",this.methods.isName.bind(this));
+         this.retrievePhone.on("blur",this.methods.isPhoneRule.bind(this));
          this.newPassword.on('input',debounce(this.methods.isPassRule.bind(this),500));
          this.retrieveBtn.on("click",this.methods.ajaxSubmit.bind(this));
      },
      methods:{
-         isEmialRule : function(e){
-             this.emialDrag =false;
-             var drag = e.target.value.match(/^([w]{3}\.|[w]{0})([\w\W]{1,})(\.com$)/) != null ? true : false;
-             if(drag){
-                 this.emialDrag = true;
-                 this.retrieveTips.removeClass("err-tips").html("邮箱格式正确");
+        toggleTip: function (tip, drag) {
+            drag ? tip.css("display", "block") : tip.css("display", "none");
+        },
+        isName : function(e){
+            this.nameDrah.addClass("fa-spinner fa-spin");
+            var data = e.target.value;
+            var promise = asyncMethods.postMessages("", data);
+            promise.then( data => {
+                user = data;
+                this.nameDrag.removeClass("fa-spinner fa-spin").addClass("fa-check-circle-o greenColor");
+            }).catch(err => {
+                this.nameDrag.removeClass("fa-spinner fa-spin").addClass("fa-times-circle-o redColor");
+            })
+        },
+        isPhoneRule : function(e){
+            e.target.value == this.user.phone ? this.phoneDrag.removeClass("fa-times-circle-o redColor").addClass("fa-check-circle-o greenColor") : this.phoneDrag.removeClass("fa-check-circle-o greenColor").addClass("fa-times-circle-o redColor");
+        },
+         isPassRule: function (e) {
+             var drag = e.target.value.match(/[A-z0-9_!\.@+-]{6,}/) != null ? true : false;
+             if (drag) {
+                 this.passDrag.removeClass("fa-times-circle-o redColor").addClass("fa-check-circle-o greenColor");
              } else {
-                 this.retrieveTips.addClass("err-tips").html("邮箱格式不正确").css("display","block");
+                 this.passDrag.removeClass("fa-check-circle-o greenColor").addClass("fa-times-circle-o redColor");
              }
          },
-         isPassRule : function(e){
-            this.passDrag = false;
-            var drag = e.target.value.match(/[A-z0-9_!\.@+-]{6,}/) != null ? true : false;
-            if(drag){
-                this.passDrag = true;
-                this.passTip.removeClass("err-tips").html("密码格式正确");
-            } else {
-                this.passTip.addClass("err-tips").html("密码格式不正确").css("display", "block");
-            }
-         },
          ajaxSubmit : function(){
-             if(this.emialDrag&&this.passDrag) {
-                 var data = `emial=${this.retrieveEmial.val()}&newPassword=${this.newPassword.val()}`
+             var drag = this.nameDrag.hasClass("greenColor") && this.phoneDrag.hasClass("greenColor") && this.passDrag.hasClass("greenColor") ? true : false;
+             if(drag) {
+                 var data = `password=${this.newPassword.val()}`
                  console.log(data);
                  const promise = asyncMethods.postMessages("http://jsonplaceholder.typicode.com/posts", data);
                  promise.then(data => {
@@ -178,60 +177,87 @@ const Register = {
         this.bindEvent();
     },
     render(){
+        //element
         this.registerName = $("#register-name");
-        this.registerEmial = $("#register-emial");
-        this.registerPassword = $("#register-password");
-        this.nameTip = $("#register-name-tips");
-        this.emialTip = $("#register-emial-tips");
-        this.passTip = $("#register-pass-tips");
+        this.registerPhone = $("#register-phone");
+        this.registerPass = $("#register-password");
+        this.registerSex = $("#register-sex");
+        //tips
+        this.nameTip = $("#register-name-tip");
+        this.phoneTip = $("#register-phone-tip");
+        this.passTip = $("#register-pass-tip");
+        this.sexTip = $("#register-sex-tip");
+        //drag
+        this.nameDrag = $("#register-name-drag");
+        this.phoneDrag = $("#register-phone-drag");
+        this.passDrag = $("#register-pass-drag");
+        this.sexDrag = $("#register-sex-drag");
+        //btn
         this.registerBtn = $("#register-btn");
-        this.nameDrag = false;
-        this.emialDrag = false;
-        this.passDrag = false;
     },
     bindEvent(){
+        //toggle Tip
+        this.registerName.on("focus",this.methods.toggleTip.bind(this,this.nameTip,true));
+        this.registerName.on("blur", this.methods.toggleTip.bind(this,this.nameTip, false));
+        this.registerPhone.on("focus", this.methods.toggleTip.bind(this,this.phoneTip, true));
+        this.registerPhone.on("blur", this.methods.toggleTip.bind(this,this.phoneTip, false));
+        this.registerPass.on("focus", this.methods.toggleTip.bind(this,this.passTip, true));
+        this.registerPass.on("blur", this.methods.toggleTip.bind(this,this.passTip, false));
+        this.registerSex.on("focus", this.methods.toggleTip.bind(this,this.sexTip, true));
+        this.registerSex.on("blur", this.methods.toggleTip.bind(this,this.sexTip, false));
+        // toggle drag
         this.registerName.on('input',debounce(this.methods.isNameRule.bind(this),500));
-        this.registerEmial.on("input",debounce(this.methods.isEmialRule.bind(this),500));
-        this.registerPassword.on('input',debounce(this.methods.isPassRule.bind(this),500));
+        this.registerPhone.on('input',debounce(this.methods.isPhoneRule.bind(this),500));
+        this.registerPass.on('input',debounce(this.methods.isPassRule.bind(this),500));
+        this.registerSex.on('input',debounce(this.methods.isSexRule.bind(this),500));
+        // btn
         this.registerBtn.on("click",this.methods.ajaxSubmit.bind(this));
     },
     methods : {
         isNameRule : function(e){
-            this.nameDrag =false;
             var firstDrge = e.target.value.match(/^[A-z]/);
             var lengthDrag = e.target.value.match(/(\w){6,}/)
             if (firstDrge && lengthDrag) {
-                this.nameDrag = true;
-                this.nameTip.removeClass("err-tips").html("用户名格式正确");
+                this.nameDrag.removeClass("fa-times-circle-o redColor").addClass("fa-check-circle-o greenColor");
             } else {
-                this.nameTip.html("用户名格式不正确").addClass("err-tips").css("display","block");
+                this.nameDrag.removeClass("fa-check-circle-o greenColor").addClass("fa-times-circle-o redColor");
             }
         },
-        isEmialRule : function(e){
-            this.emialDrag = false;
-            var drag = e.target.value.match(/^([w]{3}\.|[w]{0})([\w\W]{1,})(\.com$)/) != null ? true : false;
-            if (drag) {
-                this.emialDrag = true;
-                this.emialTip.removeClass("err-tips").html("邮箱格式正确");
-            } else {
-                this.emialTip.addClass("err-tips").html("邮箱格式不正确").css("display", "block");
+        isPhoneRule : function(e) {
+            var drag = e.target.value.match(/^[1]([0-9]{10})$/) != null ? true : false;
+            if(drag) {
+                this.phoneDrag.removeClass("fa-times-circle-o redColor").addClass("fa-check-circle-o greenColor");
+            } else{
+                this.phoneDrag.removeClass("fa-check-circle-o greenColor").addClass("fa-times-circle-o redColor");
             }
         },
         isPassRule : function(e){
-            this.passDrag = false;
             var drag = e.target.value.match(/[A-z0-9_!\.@+-]{6,}/) != null ? true : false;
-            if(drag){
-                this.passDrag = true;
-                this.passTip.removeClass("err-tips").html("密码格式正确");
+           if (drag) {
+               this.passDrag.removeClass("fa-times-circle-o redColor").addClass("fa-check-circle-o greenColor");
+           } else {
+               this.passDrag.removeClass("fa-check-circle-o greenColor").addClass("fa-times-circle-o redColor");
+           }
+        },
+        isSexRule : function(e) {
+            var drag = e.target.value == '男' || e.target.value == '女' ? true : false;
+            if (drag) {
+                this.sexDrag.removeClass("fa-times-circle-o redColor").addClass("fa-check-circle-o greenColor");
             } else {
-                this.passTip.addClass("err-tips").html("密码格式不正确").css("display", "block");
+                this.sexDrag.removeClass("fa-check-circle-o greenColor").addClass("fa-times-circle-o redColor");
             }
         },
+        toggleTip : function(tip,drag){
+            drag ? tip.css("display","block") : tip.css("display","none");
+        },
         ajaxSubmit : function(){
-            if(this.nameDrag&&this.emialDrag&&this.passDrag){
-                var data = `name=${this.registerName.val()}&emial=${this.registerEmial.val()}&password=${this.registerPassword.val()}`;
+            var drag = this.nameDrag.hasClass('greenColor') && this.phoneDrag.hasClass('greenColor') && this.passDrag.hasClass('greenColor') && this.sexDrag.hasClass('greenColor') ? true : false;
+            console.log(drag);
+            if(drag){
+                var data = `name=${this.registerName.val()}&phone=${this.registerPhone.val()}&password=${this.registerPass.val()}&sex=${this.registerSex.val()}`;
                 const promise = asyncMethods.postMessages("http://jsonplaceholder.typicode.com/posts",data);
                 promise.then(data => {
+                    console.log(data);
                     new Tips("success","注册成功",1000);
                     setTimeout(()=> {
                         location.reload();
@@ -266,5 +292,21 @@ Register.init();
                  }
              })
          })
-     }
+     },
+     getMessage :function(url,data) {
+         var data = data || "";
+         return Promise( (resolve , reject) => {
+             $.ajax({
+                 type:"GET",
+                 url : url,
+                 data : data,
+                 success : function(data) {
+                     resolve(data);
+                 },
+                 error : function(err){
+                     reject(err);
+                 }
+             })
+         })
+     },
  }
